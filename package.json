@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "console.table": "^0.10.0",
+    "i": "^0.3.7",
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.1.2",
+    "npm": "^9.4.2",
+    "util": "^0.12.5"
+  },
+  "name": "employee-cms",
+  "description": "A command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HelenELee/employee-cms.git"
+  },
+  "keywords": [
+    "employee",
+    "cms"
+  ],
+  "author": "Helen Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HelenELee/employee-cms/issues"
+  },
+  "homepage": "https://github.com/HelenELee/employee-cms#readme"
+}
