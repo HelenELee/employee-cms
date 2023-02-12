@@ -7,6 +7,8 @@ const SQLManager = require("./lib/SQLManager.js");
 const sqlManager = new SQLManager();
 //get arrays of questions used by inquirer
 const {welcomeQuestion, cmsQuestions } = require("./src/questions.js");
+const util = require('util');
+//const getDepartments = util.promisify(sqlManager.getAllDepartments);
 
 
 function runCMS() {
@@ -17,34 +19,46 @@ function runCMS() {
         
         //check user has not finished
         if (response.action !== "Quit") {
-           console.log(response.action);
+           //console.log(response.action);
             switch (response.action) {
                 case "view all departments":
-                    console.log("view all departments");
+                    //console.log("chose - view all departments");
+                    sqlManager.getAllDepartments();
+                    //.then(runCMS());
+                    //runCMS();
+                   // console.log("back in view all departments");
+                    
                     break;
                 case "view all roles":
-                    console.log("view all roles");
+                   // console.log("chose - view all roles");
+                    sqlManager.getAllRoles();
                     break;
                 case "view all employees":
-                    console.log("view all employees");
+                    //.log("chose - view all employees");
                     break;
                 default:
                     
                 break;
             }
-            
-            return;
+           // console.log("waiting after case");
+            return response;
         } else {
             return Promise.reject('Exit');
-            console.log(chalk.blue("Goodbye from CMS!"));
+            //console.log(chalk.blue("Goodbye from CMS!"));
+            //return;
         }
 
     })
-    //.then((response) => {
-    //   console.log("here doing nothing...");
-    //})
+    .then((response) => {
+        if (response.action !== "Quit") {
+            runCMS();
+        } else {
+            return;
+        }
+    }) 
     .catch(function(error) {
-        console.log("Goodbye!"); //catch any errors and exit gracefully/    
+        sqlManager.closeSQL();
+        console.log("caught error Goodbye from runCMS!"); //catch any errors and exit gracefully/    
     })
     
 }
@@ -57,15 +71,15 @@ function init() {
   .then((response) => {
     console.log(response);
     if (response.welcome === true) {
-       console.log("run CMS");
+       //console.log("run CMS");
        runCMS();
+       //console.log("back here!");
     } else {
          //user chose not to continue so exit
         return Promise.reject('Exit');
         console.log(chalk.blue("Goodbye!"));
     }
   })
-  
   .catch(function(error) {
     console.log(chalk.blue("Goodbye!")); //catch any errors and exit gracefully
 })
