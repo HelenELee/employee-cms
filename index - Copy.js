@@ -93,6 +93,26 @@ function runCMS() {
         //check user has not finished
         if (response.action !== "Quit") {
             doSQL(response.action);
+            /*
+           //console.log(response.action);
+            switch (response.action) {
+                case "view all departments":
+                    viewDepts();
+                    break;
+                case "view all roles":
+                   // console.log("chose - view all roles");
+                    sqlManager.getAllRoles();
+                    break;
+                case "view all employees":
+                    //.log("chose - view all employees");
+                    break;
+                default:
+                    
+                break;
+            }
+            */
+
+           // console.log("waiting after case");
             return response;
         } else {
             return Promise.reject('Exit');
@@ -110,7 +130,7 @@ function runCMS() {
     }) 
     .catch(function(error) {
         sqlManager.closeSQL();
-        console.log("Final Goodbye!\n"); //catch any errors and exit gracefully/    
+        console.log("Goodbye!\n"); //catch any errors and exit gracefully/    
     })
     
 }
