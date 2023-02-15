@@ -1,131 +1,96 @@
 // Include packages needed for this application
 const inquirer = require('inquirer');
-//use chalk to colour message/error messages
+///use chalk to colour message/error messages
 var chalk = require('chalk');
 //get SQL Manager Class
-const SQLManager = require("./lib/SQLManager.js");
-const sqlManager = new SQLManager();
+//const SQLManager = require("./lib/SQLManager.js");
+//const sqlManager = new SQLManager();
 //get arrays of questions used by inquirer
-const {welcomeQuestion, cmsQuestions } = require("./src/questions.js");
-const util = require('util');
-const console = require('console');
-//const getDepartments = util.promisify(sqlManager.getAllDepartments);
+const {welcomeQuestion, cmsQuestions, dptQuestions } = require("./src/questions.js");
+const {viewRoles, viewDepts, addDept, addRole, viewEmployees, addEmployee, updateEmployeeRole, viewEmployeesByMgr, viewBudgetByDept, doQuit } = require("./lib/cms-sql.js");
+//const {runCMS, initCMS } = require("./lib/cms-manager.js");
 
-function doSQL(action) {
-    console.log("doSQL - " + action + "\n");
-    const sqlFunction=null;
-    const tableTitle = "";
-    
-    switch (action) {
-        case "view all departments":
-            sqlFunction = sqlManager.getAllDepartments;
-            tableTitle = "CMS - ALL DEPARTMENTS";
-            break;
-        case "view all roles":
-           // console.log("chose - view all roles");
-           sqlFunction =sqlManager.getAllRoles;
-            tableTitle = "CMS - ALL ROLES"
-            break;
-        default:
-            
-        break;
-    }
-
-    sqlFunction()
-    .then((response) => {
-        console.log('\n');
-        console.log(`   ${tableTitle}\n`);
-        console.table(response[0]);
-        console.log('\n');
-    })
-    .then((response) => {
-        runCMS();
-    })
-    .catch(function(error) {
-       // sqlManager.closeSQL();
-        console.log("Error with viewDepts"); //catch any errors and exit gracefully/    
-    })
+//const console = require('console');
+function displayTableTemp(tableTitle, tableData) {
+    console.log('\n');
+    console.log(`   ${tableTitle}\n`);
+    console.table(tableData);
+    console.log('\n');
 }
-
-/*
-function viewDepts() {
-    sqlManager.getAllDepartments()
-    .then((response) => {
-        console.log('\n');
-        console.log('   CMS - ALL DEPARTMENTS\n');
-        console.table(response[0]);
-        console.log('\n');
-    })
-    .then((response) => {
-        runCMS();
-    })
-    .catch(function(error) {
-       // sqlManager.closeSQL();
-        console.log("Error with viewDepts"); //catch any errors and exit gracefully/    
-    })
-}
-*/
-/*
-function viewRoles() {
-    sqlManager.getAllRoles()
-    .then((response) => {
-        console.log('\n');
-        console.log('   CMS - ALL ROLES\n');
-        console.table(response[0]);
-        console.log('\n');
-    })
-    .then((response) => {
-        runCMS();
-    })
-    .catch(function(error) {
-       // sqlManager.closeSQL();
-        console.log("Error with viewDepts"); //catch any errors and exit gracefully/    
-    })
-}
-*/
 
 function runCMS() {
-   // console.log("inside runCMS");
-    inquirer
-    .prompt(cmsQuestions) //questions is the array of questions, passed to inquirer
-    .then((response) => {
+    // console.log("inside runCMS");
+     inquirer
+     .prompt(cmsQuestions) //questions is the array of questions, passed to inquirer
+     .then((response) => {
+       console.log("action = " + response.action);
+       
+         switch (response.action) {
+             case "view all departments":
+                // sqlFunction = 
+                return viewDepts();
+                 break;
+             case "view all roles":
+                // console.log("chose - view all roles");
+                return viewRoles();
+                 break;
+             case "view all employees":
+                  // console.log("chose - view all roles");
+                return viewEmployees();
+                break;
+             case "add a department":
+                 return addDept();
+               break;
+             case "add a role":
+                console.log("Chose to add a role");
+                return addRole();
+              break;
+             case "add an employee":
+                console.log("chose add employee");
+                return addEmployee();
+              break;
+             case "update employee role":
+                //console.log("chose add employee");
+                return updateEmployeeRole();
+              break;
+            case "view utilized budget by dept":
+                //console.log("chose add employee");
+                return viewBudgetByDept();
+              break;
+             default:
+                return doQuit();
+                //return Promise.reject('Quit');
+                //return process.exitCode = 0;
+             break;
+         }
         
-        //check user has not finished
-        if (response.action !== "Quit") {
-            doSQL(response.action);
-            return response;
-        } else {
-            return Promise.reject('Exit');
-            //console.log(chalk.blue("Goodbye from CMS!"));
-            //return;
-        }
-        
-    })
-    .then((response) => {
-        if (response.action !== "Quit") {
-            runCMS();
-        } else {
-            return Promise.reject('Exit');
-        }
-    }) 
-    .catch(function(error) {
-        sqlManager.closeSQL();
-        console.log("Final Goodbye!\n"); //catch any errors and exit gracefully/    
-    })
-    
-}
+         
+     })
+     .then((response) => {
+        //console.log("RUNNING CMS AGAIN!!!");
+        displayTableTemp("ALL DEPARTMENTS", response[0]);
+     }) 
+     .then((response) => {
+        //console.log("RUNNING CMS AGAIN!!!");
+        runCMS();
+     }) 
+     .catch(function(error) {
+         //sqlManager.closeSQL();
+         //sqlManager.closeSQL();
+         console.log("Final Goodbye!\n"); //catch any errors and exit gracefully/    
+     })
+     
+ }
 
 // function to initialize app
-function init() {
+function initCMS() {
     inquirer
   .prompt(welcomeQuestion) //questions is the array of questions, passed to inquirer
   
   .then((response) => {
     //console.log(response);
     if (response.welcome === true) {
-       //console.log("run CMS");
-       runCMS();
-       //console.log("back here!");
+       return runCMS();
     } else {
          //user chose not to continue so exit
         return Promise.reject('Exit');
@@ -137,5 +102,7 @@ function init() {
 })
   
 }
+
+
 //start application
-init();
+initCMS();
