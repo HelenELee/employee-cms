@@ -13,7 +13,7 @@
  - [Questions](#questions)
   
   ## Description
-  This is a command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL. It allows a user to view employee, role and department data and add new employees, roles and departments. The user can also update an employee role and view the total utilized budget of all departments.
+  This is a command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL. It allows a user to view employee, role and department data and add new employees, roles and departments. The user can also view employees by department or manager, update an employee role or manager and view the total utilized budget of all departments.
 
   Data is displayed in a tabular format, and the user is continuously prompted to carry out an action until they select to Quit.
   

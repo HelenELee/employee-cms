@@ -26,6 +26,7 @@ const cmsQuestions = [
         "add a role", 
         "add an employee", 
         "update employee role", 
+        "update employee manager",
         "view employees by manager",
         "view employees by department",
         "view utilized budget by dept"],
