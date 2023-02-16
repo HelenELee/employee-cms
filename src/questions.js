@@ -26,6 +26,7 @@ const cmsQuestions = [
         "add a role", 
         "add an employee", 
         "update employee role", 
+        "view employees by manager",
         "view utilized budget by dept"],
         message: chalk.blue("What would you like to do?\n\n"),
         name: 'action',
