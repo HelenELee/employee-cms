@@ -56,7 +56,7 @@ JOIN departments ON roles.department_id = departments.id
 WHERE emps.manager_id IS NULL;
 -- TO DO add in order by id --
 */
-
+/*
 SELECT emps.id AS ID,
        emps.first_name AS firstName, 
        emps.last_name AS lastName, 
@@ -81,4 +81,58 @@ JOIN roles ON emps.role_id = roles.id
 JOIN departments ON roles.department_id = departments.id
 WHERE emps.manager_id IS NULL
 ORDER by ID;
+*/
+/*
+SELECT emps.id AS ID,
+            emps.first_name AS firstName, 
+            emps.last_name AS lastName, 
+            roles.title AS role, 
+            departments.name AS department, 
+            roles.salary AS salary,
+            CONCAT(managers.first_name, " ", managers.last_name) AS manager
+    FROM employees emps
+    JOIN roles ON emps.role_id = roles.id
+    JOIN departments ON roles.department_id = departments.id
+    JOIN employees managers ON (emps.manager_id = managers.id)
+    UNION
+    SELECT emps.id AS ID,
+            emps.first_name AS firstName, 
+            emps.last_name AS lastName, 
+            roles.title AS role, 
+            departments.name AS department, 
+            roles.salary AS salary,
+            "-" AS manager  
+    FROM employees emps
+    JOIN roles ON emps.role_id = roles.id
+    JOIN departments ON roles.department_id = departments.id
+    WHERE emps.manager_id IS NULL
+    GROUP by manager;
+*/
+    USE employee_db;
 
+    SELECT CONCAT(managers.first_name, " ", managers.last_name) AS manager,
+                emps.id AS ID,
+            emps.first_name AS firstName, 
+            emps.last_name AS lastName, 
+            roles.title AS role, 
+            departments.name AS department, 
+            roles.salary AS salary
+            
+    FROM employees emps
+    JOIN roles ON emps.role_id = roles.id
+    JOIN departments ON roles.department_id = departments.id
+    JOIN employees managers ON (emps.manager_id = managers.id)
+    UNION
+    SELECT "-" AS manager,
+                emps.id AS ID,
+            emps.first_name AS firstName, 
+            emps.last_name AS lastName, 
+            roles.title AS role, 
+            departments.name AS department, 
+            roles.salary AS salary             
+    FROM employees emps
+    JOIN roles ON emps.role_id = roles.id
+    JOIN departments ON roles.department_id = departments.id
+    WHERE emps.manager_id IS NULL
+    ORDER BY manager;
+    

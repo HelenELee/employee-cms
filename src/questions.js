@@ -6,8 +6,8 @@ const welcomeQuestion = [
     {
         //first questions is instructions
         type: 'confirm',
-        message: chalk.green('--------------------------------------------------\n\n\n' +
-        'Welcome to the Employee Content Management System\n\n\n' +
+        message: chalk.green('--------------------------------------------------\n\n' +
+        'Welcome to the Employee Content Management System\n\n' +
         '----------------------------------------------------\n' +
         'Are you ready to begin?\n'),
         name: 'welcome',
@@ -27,6 +27,7 @@ const cmsQuestions = [
         "add an employee", 
         "update employee role", 
         "view employees by manager",
+        "view employees by department",
         "view utilized budget by dept"],
         message: chalk.blue("What would you like to do?\n\n"),
         name: 'action',
