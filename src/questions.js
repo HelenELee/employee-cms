@@ -6,10 +6,10 @@ const welcomeQuestion = [
     {
         //first questions is instructions
         type: 'confirm',
-        message: chalk.blue('------------------------------\n' +
-        'Welcome to the Employee Content Management System\n' +
-        '--------------------------------\n' +
-        'Are you ready to begin?'),
+        message: chalk.green('--------------------------------------------------\n\n\n' +
+        'Welcome to the Employee Content Management System\n\n\n' +
+        '----------------------------------------------------\n' +
+        'Are you ready to begin?\n'),
         name: 'welcome',
 
     }
@@ -18,8 +18,16 @@ const welcomeQuestion = [
 const cmsQuestions = [
     {
         type: 'list',
-        choices: ["Quit", "view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update employee role", "view utilized budget by dept"],
-        message: "What would you like to do?",
+        choices: ["Quit", 
+        "view all departments", 
+        "view all roles", 
+        "view all employees", 
+        "add a department", 
+        "add a role", 
+        "add an employee", 
+        "update employee role", 
+        "view utilized budget by dept"],
+        message: chalk.blue("What would you like to do?\n\n"),
         name: 'action',
          //this question is mandatory
         validate: action => {
@@ -57,4 +65,5 @@ module.exports = {
    welcomeQuestion : welcomeQuestion,
    cmsQuestions : cmsQuestions,
    dptQuestions : dptQuestions,
+   
 }
