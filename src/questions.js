@@ -50,56 +50,11 @@ const dptQuestions = [
       }
 ]
 
-const roleQuestions = `
-[{
-        type: 'input',
-        message: 'What is the Role name?',
-        name: 'roleName',
-        //this question is mandatory
-        validate: roleName => {
-          if (roleName) {
-              return true;
-          } else {
-              console.log('Please provide a role name!');
-              return false;
-          }
-        }
-      },
-      {
-        type: 'input',
-        message: 'What is the salary?',
-        name: 'salary',
-        //this question is mandatory
-        validate: salary => {
-          if (salary) {
-              return true;
-          } else {
-              console.log('Please provide a salary!');
-              return false;
-          }
-        }
-      },
-      {
-        type: 'list',
-        choices: ${response},
-        message: 'What is the Department for this employee?',
-        name: 'deptID',
-        //this question is mandatory
-        validate: deptID => {
-          if (deptID) {
-              return true;
-          } else {
-              console.log('Please provide a department id!');
-              return false;
-          }
-        }
-      }]
-`
+
 
 //export so can be used in index.js with Inquirer
 module.exports = {
    welcomeQuestion : welcomeQuestion,
    cmsQuestions : cmsQuestions,
    dptQuestions : dptQuestions,
-   roleQuestions : roleQuestions
 }
