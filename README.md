@@ -65,6 +65,9 @@ Or Dept by utilized budget:
 
 ![Here is a screenshot of the dept by utilized budget.](./images/budget.png)
 
+Below is a link to a video recording of how the application works.
+
+  [Video](https://drive.google.com/file/d/19uzivpd8UgF2w8rpkpN58oATm9ymhPHm/view)
 
   ## License
   This project is covered by the "The MIT License" license.
